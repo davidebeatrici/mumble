@@ -37,6 +37,7 @@ isEqual(QT_MAJOR_VERSION, 5) {
 
 win32-g++ {
 	DEFINES *= MINGW_HAS_SECURE_API
+	DEFINES -= _GLIBCXX_ASYNC_ABI_COMPAT
 
 	# Enable SSE
 	QMAKE_CFLAGS *= -msse -msse2
