@@ -11,6 +11,11 @@
 #include "OverlayClient.h"
 #include "Global.h"
 
+/// We have to do this because on MinGW std::promise's implementations
+/// are available only if _GLIBCXX_ASYNC_ABI_COMPAT isn't defined.
+#ifdef _GLIBCXX_ASYNC_ABI_COMPAT
+#undef _GLIBCXX_ASYNC_ABI_COMPAT
+#endif
 #include <future>
 
 // 3rdparty/xinputcheck-src.
