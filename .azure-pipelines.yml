@@ -20,3 +20,7 @@ jobs:
       displayName: 'Install build environment'
     - powershell: scripts/azure-pipelines/build.ps1
       displayName: 'Build'
+    - task: PublishPipelineArtifact@0
+      inputs:
+        artifactName: 'Installer'
+        targetPath: 'installer/bin/x64/Release/*.msi'
