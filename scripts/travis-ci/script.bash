@@ -53,7 +53,7 @@ elif [ "${TRAVIS_OS_NAME}" == "osx" ]; then
 	export PATH=$PATH:/usr/local/opt/qt5/bin:/usr/local/bin
 	export MUMBLE_PREFIX=/usr/local
 	export MUMBLE_ICE_PREFIX=/usr/local/opt/ice
-	qmake CONFIG+="release tests warnings-as-errors" && make -j2 && make check
+	qmake CONFIG+="release tests no-warnings-as-errors" && make -j2 && make check
 	./macx/scripts/osxdist.py --no-compat-warning
 else
 	exit 1
