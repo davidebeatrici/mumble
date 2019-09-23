@@ -66,4 +66,11 @@ $env:MUMBLE_BUILDENV_DIR = $MUMBLE_BUILDENV_DIR
 Get-ChildItem -Path $MUMBLE_BUILD_DIR
 
 & $MUMBLE_BUILDSCRIPT
+
+# We have two jobs: one that builds Mumble with PCH and one without.
+# We don't want duplicate artifacts, thus we only copy them in the fastest job.
+if (-not ($env:MUMBLE_NO_PCH -eq 1)) {
+	Copy-Item -Path "installer/bin/x64/Release/*.msi", "symbols.7z" -Destination $env:BUILD_ARTIFACTSTAGINGDIRECTORY
+}
+
 exit $lastexitcode
