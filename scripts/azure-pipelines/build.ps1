@@ -51,9 +51,15 @@ if ($env:MUMBLE_NO_PCH -eq 1) {
 	$env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS = $env:MUMBLE_EXTRA_QMAKE_CONFIG_FLAGS + " no-pch"
 }
 
+# This variable is required for the symbol-store script.
+if ($env:BUILD_REASON -eq "PullRequest") {
+	$env:MUMBLE_BUILD_TYPE = "CI"
+} else {
+	$env:MUMBLE_BUILD_TYPE = "Snapshot"
+}
+
 # Use jom to take advantage of the multiple cores we get on the builder.
 $env:MUMBLE_NMAKE = "jom"
-$env:MUMBLE_SKIP_COLLECT_SYMBOLS = "1"
 $env:MUMBLE_SKIP_INTERNAL_SIGNING = "1"
 $env:MUMBLE_BUILDENV_DIR = $MUMBLE_BUILDENV_DIR
 
