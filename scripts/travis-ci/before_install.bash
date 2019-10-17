@@ -17,12 +17,13 @@ if [ "${TRAVIS_OS_NAME}" == "linux" ]; then
 
 	if [ "${MUMBLE_HOST}" == "x86_64-linux-gnu" ] || [ "${MUMBLE_HOST}" == "aarch64-linux-gnu" ]; then
 		sudo apt-get -qq update
-		sudo apt-get -y install build-essential pkg-config qt5-default qttools5-dev-tools qttranslations5-l10n \
-                                libqt5svg5-dev libboost-dev libssl-dev libprotobuf-dev protobuf-compiler \
-                                libcap-dev libxi-dev \
-                                libasound2-dev libpulse-dev \
-                                libogg-dev libsndfile1-dev libspeechd-dev \
-                                libavahi-compat-libdnssd-dev libzeroc-ice-dev libg15daemon-client-dev
+		sudo apt-get -y install build-essential pkg-config cmake \
+		                        qt5-default qttools5-dev qttranslations5-l10n libqt5svg5-dev \
+		                        libprotobuf-dev libgrpc++-dev protobuf-compiler protobuf-compiler-grpc \
+		                        libzeroc-ice-dev libboost-dev libssl-dev libcap-dev libxi-dev \
+		                        libasound2-dev libpulse-dev portaudio19-dev \
+		                        libogg-dev libsndfile1-dev libspeechd-dev \
+		                        libavahi-compat-libdnssd-dev libg15daemon-client-dev
 	elif [ "${MUMBLE_HOST}" == "i686-w64-mingw32" ]; then
 		sudo dpkg --add-architecture i386
 		sudo apt-get -qq update
