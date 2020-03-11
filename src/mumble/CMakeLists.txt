@@ -266,7 +266,7 @@ target_compile_definitions(mumble PRIVATE "MUMBLE" "USE_OPUS")
 
 target_include_directories(mumble PRIVATE
 	${CMAKE_CURRENT_SOURCE_DIR} # This is required for includes in current folder to be found by files from the shared directory.
-	"${CMAKE_CURRENT_SOURCE_DIR}/widgets"
+	"widgets"
 	${SHARED_SOURCE_DIR}
 	"${3RDPARTY_DIR}/smallft-src"
 )
@@ -482,7 +482,57 @@ if(manual-plugin)
 endif()
 
 if(translations)
-	create_translations_qrc(${CMAKE_CURRENT_SOURCE_DIR} "translations.qrc")
+	set(ts_files
+		"mumble_ar.ts"
+		"mumble_be.ts"
+		"mumble_bg.ts"
+		"mumble_br.ts"
+		"mumble_ca_ES.ts"
+		"mumble_ca.ts"
+		"mumble_cs.ts"
+		"mumble_cy.ts"
+		"mumble_da.ts"
+		"mumble_de.ts"
+		"mumble_el_GR.ts"
+		"mumble_el.ts"
+		"mumble_en_GB.ts"
+		"mumble_en.ts"
+		"mumble_eo.ts"
+		"mumble_es.ts"
+		"mumble_eu.ts"
+		"mumble_fa_IR.ts"
+		"mumble_fi.ts"
+		"mumble_fr.ts"
+		"mumble_gl.ts"
+		"mumble_he.ts"
+		"mumble_hi.ts"
+		"mumble_hu.ts"
+		"mumble_it.ts"
+		"mumble_ja.ts"
+		"mumble_ko.ts"
+		"mumble_lt.ts"
+		"mumble_nb_NO.ts"
+		"mumble_nl_BE.ts"
+		"mumble_nl.ts"
+		"mumble_no.ts"
+		"mumble_pl.ts"
+		"mumble_pt_BR.ts"
+		"mumble_pt_PT.ts"
+		"mumble_ro.ts"
+		"mumble_ru.ts"
+		"mumble_sk.ts"
+		"mumble_sv.ts"
+		"mumble_te.ts"
+		"mumble_th.ts"
+		"mumble_tr.ts"
+		"mumble_uk.ts"
+		"mumble_vi.ts"
+		"mumble_zh_CN.ts"
+		"mumble_zh_HK.ts"
+		"mumble_zh_TW.ts"
+	)
+
+	create_translations_qrc(${CMAKE_CURRENT_SOURCE_DIR} "${ts_files}" "translations.qrc")
 	target_sources(mumble PRIVATE "translations.qrc")
 endif()
 
