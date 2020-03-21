@@ -98,7 +98,12 @@ if(WIN32)
 	)
 
 	find_pkg(Qt5 COMPONENTS Widgets REQUIRED)
-	target_link_libraries(murmur PRIVATE Qt5::Widgets)
+	target_link_libraries(murmur 
+		PRIVATE 
+			Qt5::Widgets
+			Dbghelp.lib
+			shlwapi.lib
+	)
 
 	if(static AND TARGET Qt5::QWindowsIntegrationPlugin)
 		include_qt_plugin(murmur PRIVATE QWindowsIntegrationPlugin)
@@ -198,22 +203,19 @@ if(grpc)
 endif()
 
 if(ice)
-	find_pkg(Ice COMPONENTS Ice REQUIRED)
+	find_pkg(Ice 
+		COMPONENTS 
+			Ice
+			IceUtil
+			IceSSL
+			IceDiscovery
+			IceLocatorDiscovery
+		REQUIRED
+	)
 
 	if(Ice_VERSION LESS 3.7)
 		if(Ice_VERSION_MAJOR LESS 3)
 			message(FATAL_ERROR "Unsupported Ice version, at least 3.0 is required.")
-		endif()
-
-		# IceUtil is listed in FindIce's documentation, but as of version 3.14.2 it doesn't search for that component.
-		# As a workaround, we search for the library manually in case the component is not found.
-		find_pkg(Ice COMPONENTS Util QUIET)
-
-		if(Ice::Util)
-			target_link_libraries(murmur PRIVATE Ice::Util)
-		else()
-			find_library(ICEUTIL_LIBRARY NAMES IceUtil)
-			target_link_libraries(murmur PRIVATE ${ICEUTIL_LIBRARY})
 		endif()
 	endif()
 
@@ -239,11 +241,26 @@ if(ice)
 	# @ref https://cmake.org/cmake/help/latest/policy/CMP0071.html
 	set_property(SOURCE ${ICE_GENERATED_FILES} PROPERTY SKIP_AUTOGEN ON)
 
-	target_compile_definitions(murmur PRIVATE "USE_ICE")
+	target_compile_definitions(murmur 
+		PRIVATE 
+			"USE_ICE"
+			"ICE_STATIC_LIBS"
+	)
 
-	target_include_directories(murmur PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
+	target_include_directories(murmur 
+		PRIVATE 
+			${CMAKE_CURRENT_BINARY_DIR}
+			${Ice_INCLUDE_DIRS}
+	)
 
 	target_sources(murmur PRIVATE "MurmurIce.cpp" "MurmurIce.h" ${ICE_GENERATED_FILES})
 
-	target_link_libraries(murmur PRIVATE Ice::Ice)
+	target_link_libraries(murmur 
+		PRIVATE
+			Ice::Ice
+			Ice::IceUtil
+			Ice::IceSSL
+			Ice::IceDiscovery
+			Ice::IceLocatorDiscovery
+	)
 endif()
