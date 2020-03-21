@@ -2,8 +2,18 @@
 # Use of this source code is governed by a BSD-style license
 # that can be found in the LICENSE file at the root of the
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
+option(BUILD_OVERLAY_XCOMPILE "Build an x86 overlay" OFF)
 
-add_subdirectory(overlay_exe)
+if(BUILD_OVERLAY_XCOMPILE)
+	cmake_minimum_required(VERSION 3.15)
+
+	set(version "1.4.0" CACHE STRING "Project version")
+
+	project(overlay_xcompile 
+		VERSION ${version}
+		LANGUAGES CXX
+	)
+endif()
 
 set(DX11_PIXEL_SHADERS "overlay11.ps")
 set(DX11_VERTEX_SHADERS "overlay11.vs")
@@ -16,7 +26,7 @@ set(COMPILED_EFFECTS "overlay.hex")
 set(OVERLAY_RC "mumble_ol.rc")
 
 # We save the output name in a variable because it's used by configure_file()
-if(64_BIT)
+if(64_BIT AND NOT BUILD_OVERLAY_XCOMPILE)
 	set(OUTPUT_NAME "mumble_ol_x64")
 else()
 	set(OUTPUT_NAME "mumble_ol")
@@ -63,8 +73,6 @@ add_custom_target(build-overlay-files ALL DEPENDS
 	"${CMAKE_CURRENT_BINARY_DIR}/${COMPILED_DX11_PIXEL_SHADERS}"
 )
 
-target_include_directories(overlay PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-
 add_dependencies(overlay build-overlay-files)
 
 target_sources(overlay PRIVATE
@@ -92,14 +100,31 @@ target_sources(overlay PRIVATE
 	"overlay_whitelist.h"
 
 	"${CMAKE_CURRENT_BINARY_DIR}/${OVERLAY_RC}"
-	"${3RDPARTY_DIR}/GL/glext.h"
 )
 
 set_property(TARGET overlay PROPERTY OUTPUT_NAME ${OUTPUT_NAME})
-set_property(TARGET overlay PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 
-find_pkg(Boost REQUIRED)
-target_include_directories(overlay PRIVATE ${Boost_INCLUDE_DIRS})
+find_package(Boost REQUIRED)
+
+if(BUILD_OVERLAY_XCOMPILE)
+	set_property(TARGET overlay PROPERTY RUNTIME_OUTPUT_DIRECTORY ${MUMBLE_BINARY_DIR})
+
+	target_include_directories(overlay 
+		PRIVATE 
+			${Boost_INCLUDE_DIRS}
+			${PARENT_SOURCE_DIR}
+			${CMAKE_CURRENT_BINARY_DIR}
+	)
+else()
+	set_property(TARGET overlay PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+	
+	target_include_directories(overlay 
+		PRIVATE 
+			${Boost_INCLUDE_DIRS}
+			${CMAKE_SOURCE_DIR}
+			${CMAKE_CURRENT_BINARY_DIR}
+	)
+endif()
 
 if(64_BIT)
 	add_subdirectory("${3RDPARTY_DIR}/minhook-src" "${CMAKE_CURRENT_BINARY_DIR}/minhook")
@@ -110,3 +135,44 @@ endif()
 if(MSVC)
 	set_property(TARGET overlay PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
+
+if(64_BIT AND MSVC)
+	include(ExternalProject)
+
+	if(CMAKE_GENERATOR MATCHES "Visual Studio")
+		ExternalProject_Add(overlay_xcompile
+			DOWNLOAD_COMMAND ""
+			CMAKE_GENERATOR ${CMAKE_GENERATOR}
+			CMAKE_ARGS "-DCMAKE_TOOLCHAIN_FILE=~/vcpkg/scripts/buildsystems/vcpkg.cmake"
+				"-DVCPKG_TARGET_TRIPLET=x86-windows-static-md"
+				"-DPARENT_SOURCE_DIR=${CMAKE_SOURCE_DIR}"
+				"-DMUMBLE_SOURCE_DIR=${CMAKE_SOURCE_DIR}/src/mumble"
+				"-DMUMBLE_BINARY_DIR=${CMAKE_BINARY_DIR}"
+				"-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
+				"-DBUILD_OVERLAY_XCOMPILE=ON"
+				${CMAKE_SOURCE_DIR}/overlay
+			CMAKE_GENERATOR_PLATFORM "Win32"
+			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/overlay/overlay_xcompile-prefix
+			INSTALL_COMMAND ""
+		)
+	else()
+		ExternalProject_Add(overlay_xcompile
+			DOWNLOAD_COMMAND ""
+			CONFIGURE_COMMAND ""
+			BUILD_COMMAND ${CMAKE_SOURCE_DIR}/overlay/scripts/build_overlay_xcompile.cmd
+				-G ${CMAKE_GENERATOR}
+				"-DPARENT_SOURCE_DIR=${CMAKE_SOURCE_DIR}"
+				"-DMUMBLE_SOURCE_DIR=${CMAKE_SOURCE_DIR}/src/mumble"
+				"-DMUMBLE_BINARY_DIR=${CMAKE_BINARY_DIR}"
+				"-DCMAKE_TOOLCHAIN_FILE=~/vcpkg/scripts/buildsystems/vcpkg.cmake"
+				"-DVCPKG_TARGET_TRIPLET=x86-windows-static-md"
+				"-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
+				"-DBUILD_OVERLAY_XCOMPILE=ON"
+				${CMAKE_SOURCE_DIR}/overlay
+			WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/overlay/overlay_xcompile-prefix
+			INSTALL_COMMAND ""
+		)
+	endif()
+endif()
+
+add_subdirectory(overlay_exe)
