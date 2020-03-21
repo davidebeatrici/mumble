@@ -25,4 +25,10 @@ if(MSVC)
 endif()
 
 find_library(LIB_SHLWAPI "shlwapi")
+
+add_dependencies(mumble_exe 
+	mumble 
+	overlay_exe
+)
+
 target_link_libraries(mumble_exe PRIVATE ${LIB_SHLWAPI})
