@@ -399,35 +399,39 @@ if(bundled-opus)
 	option(OPUS_BUILD_SHARED_LIBRARY "" ON)
 	add_subdirectory("${3RDPARTY_DIR}/opus-src" "${CMAKE_CURRENT_BINARY_DIR}/opus")
 
-	# Shared library on UNIX (e.g. ".so")
-	set_target_properties(opus PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-	# Shared library on Windows (e.g. ".dll")
-	set_target_properties(opus PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+	add_dependencies(mumble opus)
+	target_include_directories(mumble PRIVATE "${3RDPARTY_DIR}/opus-src/include")
 
-	# We don't actually link to Opus, because we load it manually at runtime.
-	# We use target_link_libraries() just because it automatically marks "opus"
-	# as dependency and adds the interface include directories to the target.
-	target_link_libraries(mumble PRIVATE opus)
+	if(WIN32)
+		# Shared library on Windows (e.g. ".dll")
+		set_target_properties(opus PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+	else()
+		# Shared library on UNIX (e.g. ".so")
+		set_target_properties(opus PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+	endif()
 else()
-	find_pkg("opus" REQUIRED)
-	target_link_libraries(mumble PRIVATE ${opus_LIBRARIES})
+	find_pkg(Opus CONFIG REQUIRED)
+	add_dependencies(mumble PRIVATE Opus::opus)
+	target_include_directories(mumble PRIVATE ${OPUS_INCLUDE_DIRS})
 endif()
 
 if(bundled-celt)
 	add_subdirectory("${3RDPARTY_DIR}/celt-0.7.0-build" "${CMAKE_CURRENT_BINARY_DIR}/celt")
 
-	# Shared library on UNIX (e.g. ".so")
-	set_target_properties(celt PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-	# Shared library on Windows (e.g. ".dll")
-	set_target_properties(celt PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+	add_dependencies(mumble celt)
+	target_include_directories(mumble PRIVATE "${3RDPARTY_DIR}/celt-0.7.0-src/libcelt")
 
-	# We don't actually link to CELT, because we load it manually at runtime.
-	# We use target_link_libraries() just because it automatically marks "celt"
-	# as dependency and adds the interface include directories to the target.
-	target_link_libraries(mumble PRIVATE celt)
+	if(WIN32)
+		# Shared library on Windows (e.g. ".dll")
+		set_target_properties(celt PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+	else()
+		# Shared library on UNIX (e.g. ".so")
+		set_target_properties(celt PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+	endif()
 else()
 	find_pkg("celt" REQUIRED)
-	target_link_libraries(mumble PRIVATE ${celt_LIBRARIES})
+	add_dependencies(mumble PRIVATE ${celt_LIBRARIES})
+	target_include_directories(celt PRIVATE ${celt_INCLUDE_DIRS})
 endif()
 
 if(bundled-speex)
