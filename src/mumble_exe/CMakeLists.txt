@@ -24,11 +24,9 @@ if(MSVC)
 	set_property(TARGET mumble_exe PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
 
-find_library(LIB_SHLWAPI "shlwapi")
-
 add_dependencies(mumble_exe 
 	mumble 
 	overlay_exe
 )
 
-target_link_libraries(mumble_exe PRIVATE ${LIB_SHLWAPI})
+target_link_libraries(mumble_exe PRIVATE Shlwapi.lib)
