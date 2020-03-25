@@ -203,10 +203,9 @@ if(grpc)
 endif()
 
 if(ice)
-	find_pkg(Ice 
-		COMPONENTS 
+	find_pkg(Ice
+		COMPONENTS
 			Ice
-			IceUtil
 			IceSSL
 			IceDiscovery
 			IceLocatorDiscovery
@@ -241,26 +240,31 @@ if(ice)
 	# @ref https://cmake.org/cmake/help/latest/policy/CMP0071.html
 	set_property(SOURCE ${ICE_GENERATED_FILES} PROPERTY SKIP_AUTOGEN ON)
 
-	target_compile_definitions(murmur 
-		PRIVATE 
+	target_compile_definitions(murmur
+		PRIVATE
 			"USE_ICE"
 			"ICE_STATIC_LIBS"
 	)
 
-	target_include_directories(murmur 
-		PRIVATE 
+	target_include_directories(murmur
+		PRIVATE
 			${CMAKE_CURRENT_BINARY_DIR}
 			${Ice_INCLUDE_DIRS}
 	)
 
 	target_sources(murmur PRIVATE "MurmurIce.cpp" "MurmurIce.h" ${ICE_GENERATED_FILES})
 
-	target_link_libraries(murmur 
+	target_link_libraries(murmur
 		PRIVATE
 			Ice::Ice
-			Ice::IceUtil
 			Ice::IceSSL
 			Ice::IceDiscovery
 			Ice::IceLocatorDiscovery
 	)
+
+	if(WIN32)
+		# We should investigate why IceUtil is required on Windows.
+		find_pkg(Ice COMPONENTS IceUtil REQUIRED)
+		target_link_libraries(murmur PRIVATE Ice::IceUtil)
+	endif()
 endif()
