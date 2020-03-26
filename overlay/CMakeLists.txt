@@ -143,7 +143,7 @@ if(64_BIT AND MSVC)
 		ExternalProject_Add(overlay_xcompile
 			DOWNLOAD_COMMAND ""
 			CMAKE_GENERATOR ${CMAKE_GENERATOR}
-			CMAKE_ARGS "-DCMAKE_TOOLCHAIN_FILE=~/vcpkg/scripts/buildsystems/vcpkg.cmake"
+			CMAKE_ARGS -DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
 				"-DVCPKG_TARGET_TRIPLET=x86-windows-static-md"
 				"-DPARENT_SOURCE_DIR=${CMAKE_SOURCE_DIR}"
 				"-DMUMBLE_SOURCE_DIR=${CMAKE_SOURCE_DIR}/src/mumble"
@@ -161,11 +161,11 @@ if(64_BIT AND MSVC)
 			CONFIGURE_COMMAND ""
 			BUILD_COMMAND ${CMAKE_SOURCE_DIR}/overlay/scripts/build_overlay_xcompile.cmd
 				-G ${CMAKE_GENERATOR}
+				-DCMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE}
+				"-DVCPKG_TARGET_TRIPLET=x86-windows-static-md"
 				"-DPARENT_SOURCE_DIR=${CMAKE_SOURCE_DIR}"
 				"-DMUMBLE_SOURCE_DIR=${CMAKE_SOURCE_DIR}/src/mumble"
 				"-DMUMBLE_BINARY_DIR=${CMAKE_BINARY_DIR}"
-				"-DCMAKE_TOOLCHAIN_FILE=~/vcpkg/scripts/buildsystems/vcpkg.cmake"
-				"-DVCPKG_TARGET_TRIPLET=x86-windows-static-md"
 				"-DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}"
 				"-DBUILD_OVERLAY_XCOMPILE=ON"
 				${CMAKE_SOURCE_DIR}/overlay
