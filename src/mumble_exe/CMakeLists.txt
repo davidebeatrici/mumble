@@ -27,7 +27,7 @@ endif()
 add_dependencies(mumble_exe mumble)
 
 if(overlay)
-	add_dependencies(mumble overlay_exe)
+	add_dependencies(mumble_exe overlay_exe)
 endif()
 
 target_link_libraries(mumble_exe PRIVATE Shlwapi.lib)
