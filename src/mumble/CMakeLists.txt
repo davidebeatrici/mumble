@@ -253,10 +253,12 @@ else()
 
 	configure_file(${MUMBLE_RC} ${CMAKE_CURRENT_BINARY_DIR})
 	target_sources(mumble PRIVATE "${CMAKE_CURRENT_BINARY_DIR}/${MUMBLE_RC}")
-
+	
 	if(WIN32)
 		target_sources(mumble PRIVATE "mumble.appcompat.manifest" ${MUMBLE_RC})
 	endif()
+
+	INSTALL(TARGETS mumble COMPONENT client_bin)
 endif()
 
 set_target_properties(mumble PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})

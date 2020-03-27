@@ -31,3 +31,5 @@ if(overlay)
 endif()
 
 target_link_libraries(mumble_exe PRIVATE Shlwapi.lib)
+
+install(TARGETS mumble_exe COMPONENT client_bin)

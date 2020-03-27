@@ -268,3 +268,5 @@ if(ice)
 		target_link_libraries(murmur PRIVATE Ice::IceUtil)
 	endif()
 endif()
+
+install(TARGETS murmur COMPONENT server_bin)
