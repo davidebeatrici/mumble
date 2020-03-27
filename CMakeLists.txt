@@ -38,6 +38,7 @@ option(warnings-as-errors "All warnings are treated as errors." OFF)
 option(dpkg-buildflags "Add CFLAGS, CXXFLAGS, CPPFLAGS and LDFLAGS from dpkg-buildflags to the build flags." OFF)
 
 option(overlay "Build overlay." ON)
+option(installer "Build installer." OFF)
 option(plugins "Build plugins." ON)
 
 # We support the "Debug" and "Release" configurations.
@@ -165,7 +166,7 @@ if(g15 AND WIN32)
 	add_subdirectory(g15helper)
 endif()
 
-if(overlay)
+if(overlay AND client)
 	if(WIN32)
 		add_subdirectory(overlay)
 	else()
@@ -175,4 +176,8 @@ endif()
 
 if(plugins)
 	add_subdirectory(plugins)
+endif()
+
+if(installer)
+	add_subdirectory(installer)
 endif()
