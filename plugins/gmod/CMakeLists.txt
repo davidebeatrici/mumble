@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(gmod SHARED "gmod.cpp")
+
+install(TARGETS gmod RUNTIME DESTINATION ./plugins COMPONENT client_bin)

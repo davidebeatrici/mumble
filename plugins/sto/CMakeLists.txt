@@ -6,3 +6,5 @@
 add_library(sto SHARED "../null_plugin.cpp")
 
 target_compile_definitions(sto PRIVATE "NULL_DESC=L\"Star Trek Online (retracted due to lack of maintenance)\"")
+
+install(TARGETS sto RUNTIME DESTINATION ./plugins COMPONENT client_bin)

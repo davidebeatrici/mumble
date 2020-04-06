@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(wolfet SHARED "wolfet.cpp")
+
+install(TARGETS wolfet RUNTIME DESTINATION ./plugins COMPONENT client_bin)

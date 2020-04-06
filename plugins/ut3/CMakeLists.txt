@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(ut3 SHARED "ut3.cpp")
+
+install(TARGETS ut3 RUNTIME DESTINATION ./plugins COMPONENT client_bin)

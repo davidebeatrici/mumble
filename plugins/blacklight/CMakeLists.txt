@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(blacklight SHARED "blacklight.cpp")
+
+install(TARGETS blacklight RUNTIME DESTINATION ./plugins COMPONENT client_bin)

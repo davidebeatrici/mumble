@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(aoc SHARED "aoc.cpp")
+
+install(TARGETS aoc RUNTIME DESTINATION ./plugins COMPONENT client_bin)

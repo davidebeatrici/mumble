@@ -269,4 +269,4 @@ if(ice)
 	endif()
 endif()
 
-install(TARGETS murmur COMPONENT server_bin)
+install(TARGETS murmur RUNTIME DESTINATION . COMPONENT server_bin)

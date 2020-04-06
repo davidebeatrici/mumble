@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(ut2004 SHARED "ut2004.cpp")
+
+install(TARGETS ut2004 RUNTIME DESTINATION ./plugins COMPONENT client_bin)

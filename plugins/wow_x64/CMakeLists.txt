@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(wow_x64 SHARED "wow_x64.cpp")
+
+install(TARGETS wow_x64 RUNTIME DESTINATION ./plugins COMPONENT client_bin)

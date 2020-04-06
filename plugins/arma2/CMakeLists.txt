@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(arma2 SHARED "arma2.cpp")
+
+install(TARGETS arma2 RUNTIME DESTINATION ./plugins COMPONENT client_bin)

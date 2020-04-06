@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(gtaiv SHARED "gtaiv.cpp")
+
+install(TARGETS gtaiv RUNTIME DESTINATION ./plugins COMPONENT client_bin)

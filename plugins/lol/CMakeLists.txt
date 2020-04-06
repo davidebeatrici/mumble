@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(lol SHARED "lol.cpp")
+
+install(TARGETS lol RUNTIME DESTINATION ./plugins COMPONENT client_bin)

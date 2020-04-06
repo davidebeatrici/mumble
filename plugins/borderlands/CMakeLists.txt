@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(borderlands SHARED "borderlands.cpp")
+
+install(TARGETS borderlands RUNTIME DESTINATION ./plugins COMPONENT client_bin)

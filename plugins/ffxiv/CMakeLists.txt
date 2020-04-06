@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(ffxiv SHARED "ffxiv.cpp")
+
+install(TARGETS ffxiv RUNTIME DESTINATION ./plugins COMPONENT client_bin)

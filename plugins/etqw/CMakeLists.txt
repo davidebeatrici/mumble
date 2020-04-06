@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(etqw SHARED "etqw.cpp")
+
+install(TARGETS etqw RUNTIME DESTINATION ./plugins COMPONENT client_bin)

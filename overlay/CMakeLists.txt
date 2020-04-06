@@ -117,6 +117,7 @@ if(BUILD_OVERLAY_XCOMPILE)
 	)
 else()
 	set_property(TARGET overlay PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+	install(TARGETS overlay RUNTIME DESTINATION . COMPONENT client_bin)
 	
 	target_include_directories(overlay 
 		PRIVATE 
@@ -173,6 +174,7 @@ if(64_BIT AND MSVC)
 			INSTALL_COMMAND ""
 		)
 	endif()
+	install(FILES ${CMAKE_BINARY_DIR}/mumble_ol.dll ${CMAKE_BINARY_DIR}/mumble_ol_helper.exe DESTINATION . COMPONENT client_bin)
 endif()
 
 add_subdirectory(overlay_exe)

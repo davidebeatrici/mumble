@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(ql SHARED "ql.cpp")
+
+install(TARGETS ql RUNTIME DESTINATION ./plugins COMPONENT client_bin)

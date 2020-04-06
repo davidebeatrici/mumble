@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(bf2 SHARED "bf2.cpp")
+
+install(TARGETS bf2 RUNTIME DESTINATION ./plugins COMPONENT client_bin)

@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(bf3 SHARED "bf3.cpp")
+
+install(TARGETS bf3 RUNTIME DESTINATION ./plugins COMPONENT client_bin)

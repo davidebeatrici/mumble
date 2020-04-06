@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(dys SHARED "dys.cpp")
+
+install(TARGETS dys RUNTIME DESTINATION ./plugins COMPONENT client_bin)

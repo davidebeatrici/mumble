@@ -6,3 +6,5 @@
 add_library(tf2 SHARED "../null_plugin.cpp")
 
 target_compile_definitions(tf2 PRIVATE "NULL_DESC=L\"Team Fortress 2 (retracted, now using Link)\"")
+
+install(TARGETS tf2 RUNTIME DESTINATION ./plugins COMPONENT client_bin)

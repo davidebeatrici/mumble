@@ -4,3 +4,5 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(jc2 SHARED "jc2.cpp")
+
+install(TARGETS jc2 RUNTIME DESTINATION ./plugins COMPONENT client_bin)
