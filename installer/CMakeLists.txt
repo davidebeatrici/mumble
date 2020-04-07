@@ -19,7 +19,7 @@ endif()
 set(CPACK_PACKAGE_NAME "Mumble")
 set(CPACK_PACKAGE_VENDOR "Mumble VoIP")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Mumble is a free, open source, low latency, high quality voice chat application.")
-set(CPACK_PACKAGE_VERSION "1.4.0")
+set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/gpl.rtf")
 
 if(client)
