@@ -179,5 +179,5 @@ if(plugins)
 endif()
 
 if(installer)
-	add_subdirectory(installer)
+	include(cmake/packaging.cmake)
 endif()
