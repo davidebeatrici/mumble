@@ -32,5 +32,7 @@ foreach(ITEM ${ITEMS})
 		if(WIN32)
 			target_link_libraries(${ITEM} ${LIB_USER32})
 		endif()
+
+		install(TARGETS ${ITEM} RUNTIME DESTINATION ./plugins COMPONENT client_bin)
 	endif()
 endforeach()

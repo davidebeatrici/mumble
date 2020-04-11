@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(gtav SHARED "gtav.cpp")
-
-install(TARGETS gtav RUNTIME DESTINATION ./plugins COMPONENT client_bin)

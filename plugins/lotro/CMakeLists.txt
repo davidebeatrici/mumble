@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(lotro SHARED "lotro.cpp")
-
-install(TARGETS lotro RUNTIME DESTINATION ./plugins COMPONENT client_bin)

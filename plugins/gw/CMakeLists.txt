@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(gw SHARED "gw.cpp")
-
-install(TARGETS gw RUNTIME DESTINATION ./plugins COMPONENT client_bin)

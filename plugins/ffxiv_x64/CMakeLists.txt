@@ -6,5 +6,3 @@
 add_library(ffxiv_x64 SHARED "../ffxiv/ffxiv.cpp")
 
 target_compile_definitions(ffxiv_x64 PRIVATE "FFXIV_USE_x64")
-
-install(TARGETS ffxiv_x64 RUNTIME DESTINATION ./plugins COMPONENT client_bin)

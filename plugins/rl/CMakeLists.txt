@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(rl SHARED "rl.cpp")
-
-install(TARGETS rl RUNTIME DESTINATION ./plugins COMPONENT client_bin)

@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(cod2 SHARED "cod2.cpp")
-
-install(TARGETS cod2 RUNTIME DESTINATION ./plugins COMPONENT client_bin)

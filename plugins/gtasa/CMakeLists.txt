@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(gtasa SHARED "gtasa.cpp")
-
-install(TARGETS gtasa RUNTIME DESTINATION ./plugins COMPONENT client_bin)

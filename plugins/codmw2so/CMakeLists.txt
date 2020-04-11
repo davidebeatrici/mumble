@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(codmw2so SHARED "codmw2so.cpp")
-
-install(TARGETS codmw2so RUNTIME DESTINATION ./plugins COMPONENT client_bin)

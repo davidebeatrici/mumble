@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(breach SHARED "breach.cpp")
-
-install(TARGETS breach RUNTIME DESTINATION ./plugins COMPONENT client_bin)

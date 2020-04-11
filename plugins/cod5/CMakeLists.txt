@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(cod5 SHARED "cod5.cpp")
-
-install(TARGETS cod5 RUNTIME DESTINATION ./plugins COMPONENT client_bin)

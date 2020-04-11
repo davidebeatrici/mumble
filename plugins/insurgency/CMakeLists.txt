@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(insurgency SHARED "insurgency.cpp")
-
-install(TARGETS insurgency RUNTIME DESTINATION ./plugins COMPONENT client_bin)

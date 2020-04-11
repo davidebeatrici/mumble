@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(bfbc2 SHARED "bfbc2.cpp")
-
-install(TARGETS bfbc2 RUNTIME DESTINATION ./plugins COMPONENT client_bin)

@@ -6,5 +6,3 @@
 add_library(dods SHARED "../null_plugin.cpp")
 
 target_compile_definitions(dods PRIVATE "NULL_DESC=L\"Day of Defeat: Source (retracted, now using Link)\"")
-
-install(TARGETS dods RUNTIME DESTINATION ./plugins COMPONENT client_bin)

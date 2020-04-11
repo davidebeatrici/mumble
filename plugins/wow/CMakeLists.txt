@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(wow SHARED "wow.cpp")
-
-install(TARGETS wow RUNTIME DESTINATION ./plugins COMPONENT client_bin)

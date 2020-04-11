@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(bfheroes SHARED "bfheroes.cpp")
-
-install(TARGETS bfheroes RUNTIME DESTINATION ./plugins COMPONENT client_bin)

@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(l4d SHARED "l4d.cpp")
-
-install(TARGETS l4d RUNTIME DESTINATION ./plugins COMPONENT client_bin)

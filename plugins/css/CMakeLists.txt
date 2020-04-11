@@ -6,5 +6,3 @@
 add_library(css SHARED "../null_plugin.cpp")
 
 target_compile_definitions(css PRIVATE "NULL_DESC=L\"Counter Strike: Source (retracted, now using Link)\"")
-
-install(TARGETS css RUNTIME DESTINATION ./plugins COMPONENT client_bin)

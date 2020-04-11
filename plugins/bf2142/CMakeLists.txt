@@ -4,5 +4,3 @@
 # Mumble source tree or at <https://www.mumble.info/LICENSE>.
 
 add_library(bf2142 SHARED "bf2142.cpp")
-
-install(TARGETS bf2142 RUNTIME DESTINATION ./plugins COMPONENT client_bin)
