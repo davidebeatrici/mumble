@@ -2,6 +2,14 @@ if(WIN32)
 	set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
 	include(InstallRequiredSystemLibraries)
 
+	if(client)
+		install(FILES ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} DESTINATION "." COMPONENT client_bin)
+	endif()
+
+	if(server AND NOT client)
+		install(FILES ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS} DESTINATION "." COMPONENT server_bin)
+	endif()
+
 	if(64_BIT)
 		set(CPACK_WIX_UPGRADE_GUID "E028BDFC-3FE2-4BEE-A33B-EB9C80611555")
 	elseif(32_BIT)
