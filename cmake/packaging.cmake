@@ -1,6 +1,7 @@
 if(WIN32)
-	include(InstallRequiredSystemLibraries)
 	set(CMAKE_INSTALL_UCRT_LIBRARIES TRUE)
+	include(InstallRequiredSystemLibraries)
+
 	if(64_BIT)
 		set(CPACK_WIX_UPGRADE_GUID "E028BDFC-3FE2-4BEE-A33B-EB9C80611555")
 	elseif(32_BIT)
