@@ -5,6 +5,8 @@
 
 set(OVERLAY_EXE_RC "overlay_exe.rc")
 
+add_definitions("-DUNICODE" "-DWIN32_LEAN_AND_MEAN")
+
 # We save the output name in a variable because it's used by configure_file()
 if(64_BIT AND NOT BUILD_OVERLAY_XCOMPILE)
 	set(OUTPUT_NAME "mumble_ol_helper_x64")
