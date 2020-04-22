@@ -32,4 +32,4 @@ endif()
 
 target_link_libraries(mumble_exe PRIVATE Shlwapi.lib)
 
-install(TARGETS mumble_exe RUNTIME DESTINATION . COMPONENT client_bin)
+install(TARGETS mumble_exe RUNTIME DESTINATION . COMPONENT mumble_client)

@@ -33,6 +33,6 @@ foreach(ITEM ${ITEMS})
 			target_link_libraries(${ITEM} ${LIB_USER32})
 		endif()
 
-		install(TARGETS ${ITEM} RUNTIME DESTINATION ./plugins COMPONENT client_bin)
+		install(TARGETS ${ITEM} RUNTIME DESTINATION ./plugins COMPONENT mumble_client)
 	endif()
 endforeach()

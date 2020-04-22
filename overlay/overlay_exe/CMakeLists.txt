@@ -36,7 +36,7 @@ if(BUILD_OVERLAY_XCOMPILE)
 	target_include_directories(overlay_exe PRIVATE ${PARENT_SOURCE_DIR}/overlay)
 else()
 	set_property(TARGET overlay_exe PROPERTY RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-	install(TARGETS overlay_exe RUNTIME DESTINATION . COMPONENT client_bin)
+	install(TARGETS overlay_exe RUNTIME DESTINATION . COMPONENT mumble_client)
 	
 	target_include_directories(overlay_exe PRIVATE ${CMAKE_SOURCE_DIR}/overlay)
 endif()
