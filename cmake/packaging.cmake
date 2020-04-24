@@ -1,4 +1,6 @@
 if(WIN32)
+	set(CPACK_GENERATOR WIX)
+
 	if(64_BIT)
 		set(CPACK_WIX_UPGRADE_GUID "E028BDFC-3FE2-4BEE-A33B-EB9C80611555")
 	elseif(32_BIT)
@@ -8,7 +10,6 @@ if(WIN32)
 	set(CPACK_WIX_UI_BANNER "${CMAKE_SOURCE_DIR}/installer/bannrbmp.bmp")
 	set(CPACK_WIX_UI_DIALOG "${CMAKE_SOURCE_DIR}/installer/dlgbmp.bmp")
 	set(CPACK_WIX_PRODUCT_GUID "84afea8b-15e5-4cc7-b77d-27dd17030944")
-	#set(CPACK_WIX_CULTURES "cs-CZ,da-DK,en-GB,en-US,nl-NL,fi-FI,fr-FR,de-DE,el-GR,it-IT,ja-JP,no-NO,pl-PL,pt-PT,ru-RU,es-ES,sv-SE,tr-TR,zh-CN,zh-TW")
 	set(CPACK_WIX_PRODUCT_ICON "${CMAKE_SOURCE_DIR}/icons/mumble.ico")
 	set(CPACK_WIX_EXTENSIONS "WiXUtilExtension")
 	set(CPACK_PACKAGE_EXECUTABLES "mumble;Mumble" "murmur;Murmur")
@@ -18,17 +19,17 @@ endif()
 
 if(client)
 	set(CPACK_PACKAGE_NAME "Mumble (client)")
-	set(CPACK_PACKAGE_FILE_NAME "Mumble_Client-${version}-${CMAKE_SYSTEM_PROCESSOR}")
+	set(CPACK_PACKAGE_FILE_NAME "mumble_client-${version}-${CMAKE_SYSTEM_PROCESSOR}")
 	set(CPACK_PACKAGE_VENDOR "Mumble VoIP")
 	set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Mumble is a free, open source, low latency, high quality voice chat application.")
 	set(CPACK_PACKAGE_HOMEPAGE_URL "https://mumble.info")
 	set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/installer/gpl.rtf")
+	set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README")
 	set(CPACK_COMPONENTS_ALL mumble_client)
 	set(CPACK_COMPONENT_MUMBLE_CLIENT_REQUIRED ON)
 	set(CPACK_COMPONENT_MUMBLE_CLIENT_DISPLAY_NAME "Client")
 	set(CPACK_COMPONENT_MUMBLE_CLIENT_DESCRIPTION "The Mumble VoIP Client")
 	install(FILES
-		"${CMAKE_SOURCE_DIR}/README"
 		"${CMAKE_SOURCE_DIR}/CHANGES"
 		"${CMAKE_SOURCE_DIR}/installer/gpl.txt"
 		"${CMAKE_SOURCE_DIR}/installer/qt.txt"
@@ -44,13 +45,13 @@ if(server AND NOT client)
 		set(CPACK_WIX_UPGRADE_GUID "03e9476f-0f75-4661-bfc9-a9daeb23d3a0")
 	endif()
 	set(CPACK_PACKAGE_NAME "Mumble (server)")
-	set(CPACK_PACKAGE_FILE_NAME "Mumble_Server-${version}-${CMAKE_SYSTEM_PROCESSOR}")
+	set(CPACK_PACKAGE_FILE_NAME "mumble_server-${version}-${CMAKE_SYSTEM_PROCESSOR}")
 	set(CPACK_PACKAGE_VENDOR "Mumble VoIP")
 	set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Mumble is a free, open source, low latency, high quality voice chat application.")
 	set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/installer/gpl.rtf")
+	set(CPACK_RESOURCE_FILE_README "${CMAKE_SOURCE_DIR}/README")
 	set(CPACK_COMPONENT_MUMBLE_SERVER_REQUIRED ON)
 	install(FILES
-		"${CMAKE_SOURCE_DIR}/README"
 		"${CMAKE_SOURCE_DIR}/CHANGES"
 		"${CMAKE_SOURCE_DIR}/installer/gpl.txt"
 		"${CMAKE_SOURCE_DIR}/installer/qt.txt"
@@ -73,6 +74,7 @@ if(client AND server)
 	set(CPACK_PACKAGE_FILE_NAME "Mumble-${version}-${CMAKE_SYSTEM_PROCESSOR}")
 	set(CPACK_PACKAGE_VENDOR "Mumble VoIP")
 	set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Mumble is a free, open source, low latency, high quality voice chat application.")
+	set(CPACK_COMPONENT_MUMBLE_SERVER_DISABLED ON)
 	set(CPACK_COMPONENTS_ALL mumble_client mumble_server)
 endif()
 
