@@ -52,15 +52,15 @@ if(-Not (Test-Path -Path ".\EmbedTransform.exe")) {
 }
 
 # create final release msi file
-cpack -C Release -D CPACK_PACKAGE_FILE_NAME=$installerName-MUI
+cpack -C Release -D CPACK_PACKAGE_FILE_NAME=$installerName-MUI -B .\install
 
 foreach($culture in $cultures) {
 	if(-Not ($PSCulture -eq $culture)) {
 		Write-Host "Creating installer for $culture..."
-		cpack -C Release -D CPACK_PACKAGE_FILE_NAME=$installerName-$culture -D CPACK_WIX_CULTURES=$culture
+		cpack -C Release -D CPACK_PACKAGE_FILE_NAME=$installerName-$culture -D CPACK_WIX_CULTURES=$culture -B .\install
 		Write-Host "Creating language transform for $culture..."
-		& $wixBinaryDir\torch.exe -p -t language .\$installerName-MUI.msi .\$installerName-$culture.msi -out .\$culture.mst
+		& $wixBinaryDir\torch.exe -p -t language install\$installerName-MUI.msi install\$installerName-$culture.msi -out install\$culture.mst
 		Write-Host "Embedding transform for $culture..."
-		& $wixBinaryDir\EmbedTransform.exe .\$installerName-MUI.msi .\$culture.mst
+		& $wixBinaryDir\EmbedTransform.exe install\$installerName-MUI.msi install\$culture.mst
 	}
 }
