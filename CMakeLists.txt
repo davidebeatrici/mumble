@@ -179,5 +179,9 @@ if(plugins)
 endif()
 
 if(installer)
+	if(WIN32)
+		file(COPY "${CMAKE_SOURCE_DIR}/scripts/Create-Win32InstallerMUI.ps1" DESTINATION "${CMAKE_BINARY_DIR}")
+	endif()
+
 	include(cmake/packaging.cmake)
 endif()
