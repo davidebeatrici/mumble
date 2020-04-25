@@ -1,4 +1,4 @@
-param([Parameter(Mandatory=$true)]$productName, 
+param([Parameter(Mandatory=$true)]$packageName, 
 	[Parameter(Mandatory=$true)]$version, 
 	[Parameter(Mandatory=$true)]$systemName
 )
@@ -25,7 +25,7 @@ $cultures = "cs-CZ",
 
 # requires WiX install and the env var
 $wixBinaryDir = $env:WIX + "bin"
-$installerName = "$productName-$version-$systemName"
+$installerName = "$packageName-$version-$systemName"
 
 if(-Not (Test-Path -Path ".\EmbedTransform.exe")) {
 	Write-Host "Downloading EmbedTransform from FireGiant (WiX)..."
