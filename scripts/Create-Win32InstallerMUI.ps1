@@ -24,6 +24,14 @@ $cultures = "cs-CZ",
 	"zh-TW"
 
 # requires WiX install and the env var
+try {
+	Test-Path $env:WIX
+}
+
+catch{
+	Write-Host "Error: WiX is not installed or not in the system PATH! Aborting..."
+}
+
 $wixBinaryDir = $env:WIX + "bin"
 $installerName = "$packageName-$version-$systemName"
 
