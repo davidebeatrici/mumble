@@ -29,6 +29,8 @@ if(client)
 	set(CPACK_COMPONENT_MUMBLE_CLIENT_REQUIRED ON)
 	set(CPACK_COMPONENT_MUMBLE_CLIENT_DISPLAY_NAME "Client")
 	set(CPACK_COMPONENT_MUMBLE_CLIENT_DESCRIPTION "The Mumble VoIP Client")
+	set(CPACK_WIX_PATCH_FILE "${CMAKE_SOURCE_DIR}/installer/client-shortcuts.xml")
+
 	install(FILES
 		"${CMAKE_SOURCE_DIR}/CHANGES"
 		"${CMAKE_SOURCE_DIR}/installer/gpl.txt"
@@ -65,6 +67,7 @@ if(server)
 	set(CPACK_COMPONENTS_ALL mumble_server)
 	set(CPACK_COMPONENT_MUMBLE_SERVER_DISPLAY_NAME "Server")
 	set(CPACK_COMPONENT_MUMBLE_SERVER_DESCRIPTION "The Mumble VoIP Server")
+	set(CPACK_WIX_PATCH_FILE "${CMAKE_SOURCE_DIR}/installer/server-shortcuts.xml")
 
 	if(WIN32)
 		install(FILES "${CMAKE_SOURCE_DIR}/scripts/murmur.ini" DESTINATION "." COMPONENT mumble_server)
@@ -78,6 +81,10 @@ if(client AND server)
 		set(CPACK_PACKAGE_VENDOR "Mumble VoIP")
 		set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Mumble is a free, open source, low latency, high quality voice chat application.")
 		set(CPACK_COMPONENT_MUMBLE_SERVER_DISABLED ON)
+		set(CPACK_WIX_PATCH_FILE
+			"${CMAKE_SOURCE_DIR}/installer/client-shortcuts.xml"
+			"${CMAKE_SOURCE_DIR}/installer/server-shortcuts.xml"
+		)
 	endif()
 
 	set(CPACK_COMPONENTS_ALL mumble_client mumble_server)
