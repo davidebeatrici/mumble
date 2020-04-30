@@ -60,7 +60,7 @@ if(-Not (Test-Path -Path ".\EmbedTransform.exe")) {
 }
 
 # create final release msi file
-cpack -C Release -D CPACK_PACKAGE_FILE_NAME=$installerName-MUI -B .\install
+cpack -C Release -D CPACK_PACKAGE_FILE_NAME=$installerName-MUI -D CPACK_WIX_CULTURES=$PSCulture -B .\install
 
 foreach($culture in $cultures) {
 	if(-Not ($PSCulture -eq $culture)) {
@@ -69,6 +69,11 @@ foreach($culture in $cultures) {
 		Write-Host "Creating language transform for $culture..."
 		& $wixBinaryDir\torch.exe -p -t language install\$installerName-MUI.msi install\$installerName-$culture.msi -out install\$culture.mst
 		Write-Host "Embedding transform for $culture..."
-		& $wixBinaryDir\EmbedTransform.exe install\$installerName-MUI.msi install\$culture.mst
+		& .\EmbedTransform.exe install\$installerName-MUI.msi install\$culture.mst
 	}
 }
+
+# generate checksum file
+$checksum = Get-FileHash $installerName-MUI.msi -Algorithm SHA1 | Select-Object -ExpandProperty Hash
+$chksumOutput = "$installerName - $checksum"
+Out-File -InputObject $chksumOutput -FilePath install\$installerName-MUI.sha1
