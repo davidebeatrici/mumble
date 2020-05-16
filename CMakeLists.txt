@@ -173,6 +173,6 @@ if(overlay)
 	endif()
 endif()
 
-if(plugins)
+if(plugins AND client)
 	add_subdirectory(plugins)
 endif()
