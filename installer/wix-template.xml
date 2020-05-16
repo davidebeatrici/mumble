@@ -14,7 +14,7 @@
 
         <Package InstallerVersion="301" 
 			Compressed="yes"
-			Languages="0,1028,1029,1030,1031,1032,1033,1034,1035,1036,1040,1041,1043,1044,1045,1046,1049,1053,1055,2052"/>
+			Languages="1033,1028,1029,1030,1031,1032,1034,1035,1036,1040,1041,1043,1044,1045,1046,1049,1053,1055,2052"/>
 
         <Media Id="1" Cabinet="media1.cab" EmbedCab="yes"/>
 
@@ -41,7 +41,12 @@
 
         <FeatureRef Id="ProductFeature"/>
 
+        <UI Id="*"> 
+            <TextStyle Id="Font" FaceName="MS Shell Dlg" Size="11"/>
+        </UI>
+
         <UIRef Id="$(var.CPACK_WIX_UI_REF)" />
+        <UIRef Id="WixUI_ErrorProgressText" />
 
         <?include "properties.wxi"?>
         <?include "product_fragment.wxi"?>
