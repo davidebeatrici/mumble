@@ -1,5 +1,5 @@
 <CPackWiXPatch>
-	<CPackWiXFragment Id="CM_C_mumble_server">
+	<CPackWiXFragment Id="CM_C_mumble_server" Display="expand">
 		<Feature Id="CM_SHORTCUT_F_mumble_server" 
 			Title="Program Group" 
 			Description="Create Menu Program Group"
