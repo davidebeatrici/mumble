@@ -36,6 +36,8 @@ set(MURMUR_SOURCES
 	"${SHARED_SOURCE_DIR}/ACL.h"
 	"${SHARED_SOURCE_DIR}/Channel.cpp"
 	"${SHARED_SOURCE_DIR}/Channel.h"
+	"${SHARED_SOURCE_DIR}/ChannelListener.cpp"
+	"${SHARED_SOURCE_DIR}/ChannelListener.h"
 	"${SHARED_SOURCE_DIR}/Connection.cpp"
 	"${SHARED_SOURCE_DIR}/Connection.h"
 	"${SHARED_SOURCE_DIR}/Group.cpp"
@@ -103,6 +105,7 @@ if(WIN32)
 			Qt5::Widgets
 			Dbghelp.lib
 			shlwapi.lib
+			rpcrt4.lib
 	)
 
 	if(static AND TARGET Qt5::QWindowsIntegrationPlugin)
