@@ -29,5 +29,7 @@ foreach(ITEM ${ITEMS})
 			# Shared library on UNIX (e.g. ".so")
 			set_target_properties(${ITEM} PROPERTIES LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/plugins")
 		endif()
+
+		install(TARGETS ${ITEM} RUNTIME DESTINATION ./plugins COMPONENT mumble_client)
 	endif()
 endforeach()
