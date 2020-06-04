@@ -21,4 +21,5 @@ make check
 # Build installer
 ./macx/scripts/osxdist.py --version=${ver}
 
-mv release/*.dmg ${BUILD_ARTIFACTSTAGINGDIRECTORY}
+cp -r release ${BUILD_ARTIFACTSTAGINGDIRECTORY}/
+cp -r macx ${BUILD_ARTIFACTSTAGINGDIRECTORY}/
