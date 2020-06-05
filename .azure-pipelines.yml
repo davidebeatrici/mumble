@@ -24,6 +24,7 @@ jobs:
       displayName: 'Build'
     - powershell: |
         cd $(Agent.BuildDirectory)
+        $PSCulture
         .\Create-Win32InstallerMUI.ps1 -PackageName 'Mumble' -Version '1.4.0' -SystemName 'win64'
         cp install/*.msi $(Build.ArtifactStagingDirectory)
       displayName: Build installer
