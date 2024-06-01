@@ -29,6 +29,7 @@ struct UpdateWidgetPair {
 /// the same plugin.
 struct UpdateEntry {
 	UpdateEntry() = default;
+	UpdateEntry(plugin_id_t const &p, QUrl const &u, QString const &f, int const r) : pluginID(p), updateURL(u), fileName(f), redirects(r) {}
 
 	plugin_id_t pluginID = std::numeric_limits< plugin_id_t >::max();
 	QUrl updateURL;
